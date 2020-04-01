@@ -6,45 +6,23 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import uuid from 'uuid/v4';
 
+import { connect } from 'react-redux';
+import { getItems, addItem, deleteItem } from '../redux/actions/itemActions';
 class ShoppingList extends Component {
-    constructor() {
-        super();
-        this.state = {
-            items: [
-                {
-                    _id: uuid(),
-                    name: 'Product 1'
-                },
-                {
-                    _id: uuid(),
-                    name: 'Product 2'
-                }
-                ,
-                {
-                    _id: uuid(),
-                    name: 'Product 3'
-                }
-                ,
-                {
-                    _id: uuid(),
-                    name: 'Product 4'
-                }
-            ]
-        }
-    }
 
-    addItem = () => {
-        const name = prompt('Enter Item');
-        if (name.length > 1) {
-            this.setState({ items: [...this.state.items, { _id: uuid(), name }] })
-        }
-    }
-    deleteItem = (itemId) => {
-        this.setState({ items: [...this.state.items.filter(item => item._id !== itemId)] })
-    }
+    // addItem = () => {
+    //     const name = prompt('Enter Item');
+    //     if (name.length > 1) {
+    //         this.setState({ items: [...this.state.items, { _id: uuid(), name }] })
+    //     }
+    // }
+    // deleteItem = (itemId) => {
+    //     this.setState({ items: [...this.state.items.filter(item => item._id !== itemId)] })
+    // }
 
     render() {
-        const { items } = this.state;
+        const { items, deleteItem, addItem } = this.props;
+
         return (
             <Container>
                 <Button
@@ -53,7 +31,9 @@ class ShoppingList extends Component {
                         marginTop: '2rem',
                         marginBottom: '2rem'
                     }}
-                    onClick={this.addItem}
+                    onClick={() => {
+                        addItem({ _id: uuid(), name: 'Just checking....' })
+                    }}
                 >Add Item</Button>
 
                 <ListGroup>
@@ -69,11 +49,11 @@ class ShoppingList extends Component {
                                             color="danger"
                                             size="sm"
                                             onClick={() => {
-                                                this.deleteItem(item._id)
+                                                deleteItem(item._id)
                                             }}
                                         >
                                             &times;
-                                        </Button>
+</Button>
                                         {item.name}
                                     </ListGroupItem>
                                 </CSSTransition>
@@ -86,5 +66,13 @@ class ShoppingList extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    items: state.item.items
+});
 
-export default ShoppingList;
+const mapDispatchToState = (dispatch) => ({
+    addItem: (item) => dispatch(addItem(item)),
+    deleteItem: (id) => dispatch(deleteItem(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToState)(ShoppingList);
