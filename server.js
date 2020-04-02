@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dbUri = require('./config/keys').MONGOURI
 const app = express();
-
+const path = require('path');
 //Default Port
 const port = process.env.PORT || 5000
 
@@ -19,7 +19,6 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then(() => console.log('Mongodb Connected'))
     .catch(err => console.log(err, 'Connection error'));
 
 
@@ -38,7 +37,16 @@ app.use((req, res, next) => {
 //Middleware
 app.use('/api/items', items);
 
+// SERVE Static
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
 
-app.listen(port, () => {
-    console.log('server is running on port ' + port);
-});
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
+
+
+
+app.listen(port);
