@@ -1,26 +1,8 @@
 import uuid from 'uuid/v4';
 import { ItemsType } from '../actions/types';
 const intialState = {
-    items: [
-        {
-            _id: uuid(),
-            name: 'Product 1'
-        },
-        {
-            _id: uuid(),
-            name: 'Product 2'
-        }
-        ,
-        {
-            _id: uuid(),
-            name: 'Product 3'
-        }
-        ,
-        {
-            _id: uuid(),
-            name: 'Product 4'
-        }
-    ]
+    items: [],
+    loading: false
 };
 
 const ItemReducer = (state = intialState, action) => {
@@ -32,11 +14,17 @@ const ItemReducer = (state = intialState, action) => {
             }
         case ItemsType.Add_ITEM:
             return {
+                ...state,
                 items: [...state.items, action.payload]
             }
-
+        case ItemsType.ITEMS_LOADING:
+            return {
+                ...state,
+                loading: !state.loading
+            }
         case ItemsType.DELETE_ITEM:
             return {
+                ...state,
                 items: state.items.filter(item => item._id !== action.payload)
             }
         default:

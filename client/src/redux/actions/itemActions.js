@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ItemsType } from './types';
 export const getItems = () => {
     return {
@@ -12,6 +13,11 @@ export const addItem = (item) => {
     }
 }
 
+export const setItemLoading = () => {
+    return {
+        type: ItemsType.ITEMS_LOADING,
+    }
+}
 export const deleteItem = (id) => {
     return {
         type: ItemsType.DELETE_ITEM,

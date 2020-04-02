@@ -4,10 +4,12 @@ import {
 } from 'reactstrap';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import uuid from 'uuid/v4';
 
 import { connect } from 'react-redux';
 import { getItems, addItem, deleteItem } from '../redux/actions/itemActions';
+
+
+
 class ShoppingList extends Component {
 
     // addItem = () => {
@@ -25,16 +27,7 @@ class ShoppingList extends Component {
 
         return (
             <Container>
-                <Button
-                    color='dark'
-                    style={{
-                        marginTop: '2rem',
-                        marginBottom: '2rem'
-                    }}
-                    onClick={() => {
-                        addItem({ _id: uuid(), name: 'Just checking....' })
-                    }}
-                >Add Item</Button>
+
 
                 <ListGroup>
                     <TransitionGroup className='shopping-list'>
