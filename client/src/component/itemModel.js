@@ -17,8 +17,6 @@ function ItemModel(props) {
         e.preventDefault();
         if (name.length > 3) {
             addItem({ name });
-            console.log({ name });
-
         }
         setItem('')
     }

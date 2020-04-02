@@ -41,7 +41,7 @@ app.use('/api/items', items);
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
 
-    app.use("/*", (req, res) => {
+    app.use("*", (req, res) => {
         res.send(path.join(__dirname, "client", "build", "index.html"));
     });
 
