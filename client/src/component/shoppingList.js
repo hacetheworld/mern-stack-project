@@ -15,7 +15,6 @@ class ShoppingList extends Component {
     render() {
         const { items, deleteItem } = this.props;
         // console.log(items);
-
         return (
             <Container>
                 <ListGroup>
@@ -24,7 +23,7 @@ class ShoppingList extends Component {
                             items.map((item) => (
                                 <CSSTransition
                                     key={item._id}
-                                    timeout={700} classNames="fade">
+                                    timeout={600} classNames="fade">
                                     <ListGroupItem>
                                         <Button
                                             className='remove-btn'
