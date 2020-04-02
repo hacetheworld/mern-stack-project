@@ -1,4 +1,3 @@
-import uuid from 'uuid/v4';
 import { ItemsType } from '../actions/types';
 const intialState = {
     items: [],
@@ -10,12 +9,15 @@ const ItemReducer = (state = intialState, action) => {
     switch (action.type) {
         case ItemsType.GET_ITEMS:
             return {
-                ...state
+                ...state,
+                items: action.payload,
+                loading: false
             }
         case ItemsType.Add_ITEM:
             return {
                 ...state,
-                items: [...state.items, action.payload]
+                items: [...state.items, action.payload],
+                loading: false
             }
         case ItemsType.ITEMS_LOADING:
             return {

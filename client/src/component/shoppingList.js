@@ -8,27 +8,16 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux';
 import { getItems, addItem, deleteItem } from '../redux/actions/itemActions';
 
-
-
 class ShoppingList extends Component {
-
-    // addItem = () => {
-    //     const name = prompt('Enter Item');
-    //     if (name.length > 1) {
-    //         this.setState({ items: [...this.state.items, { _id: uuid(), name }] })
-    //     }
-    // }
-    // deleteItem = (itemId) => {
-    //     this.setState({ items: [...this.state.items.filter(item => item._id !== itemId)] })
-    // }
-
+    componentDidMount() {
+        this.props.getItems()
+    }
     render() {
-        const { items, deleteItem, addItem } = this.props;
+        const { items, deleteItem } = this.props;
+        // console.log(items);
 
         return (
             <Container>
-
-
                 <ListGroup>
                     <TransitionGroup className='shopping-list'>
                         {
@@ -42,7 +31,8 @@ class ShoppingList extends Component {
                                             color="danger"
                                             size="sm"
                                             onClick={() => {
-                                                deleteItem(item._id)
+                                                deleteItem(item._id);
+
                                             }}
                                         >
                                             &times;
@@ -65,6 +55,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToState = (dispatch) => ({
     addItem: (item) => dispatch(addItem(item)),
+    getItems: () => dispatch(getItems()),
     deleteItem: (id) => dispatch(deleteItem(id))
 });
 

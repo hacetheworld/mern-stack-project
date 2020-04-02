@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input, FormGroup, Label } from 'reactstrap';
-import uuid from 'uuid/v4';
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { Button, Modal, ModalHeader, ModalBody, Form, Input, FormGroup } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addItem } from '../redux/actions/itemActions';
 
@@ -18,7 +16,9 @@ function ItemModel(props) {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         if (name.length > 3) {
-            addItem({ _id: uuid(), name })
+            addItem({ name });
+            console.log({ name });
+
         }
         setItem('')
     }

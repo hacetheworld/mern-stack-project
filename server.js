@@ -23,11 +23,22 @@ mongoose
     .catch(err => console.log(err, 'Connection error'));
 
 
+
+//Add heders
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.header("Access-Control-Allow-Headers", "X-PINGOTHER,Origin, X-Requested-With, Content-Type, Accept");
+    if (req.method == 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+        return res.status(200).json({});
+    }
+    next();
+});
+
 //Middleware
 app.use('/api/items', items);
 
 
 app.listen(port, () => {
-    console.log('server is running...');
-
+    console.log('server is running on port ' + port);
 });

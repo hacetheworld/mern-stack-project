@@ -25,6 +25,7 @@ router.post('/', (req, res) => {
     const newItem = new Item({
         name: req.body.name
     });
+
     newItem.save()
         .then(resCreatedItem => {
             res.status(200).json({
